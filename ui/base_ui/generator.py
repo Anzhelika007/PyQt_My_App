@@ -29,10 +29,10 @@ def generation_ui_py(path: str):
         file_path = os.path.join(path, i)
         # получаем имя файла(получили имя ui файла и удалили последний элемент - расширение ui)
         file_name = file_path.split(os.sep)[-1].removesuffix('.ui')
-        print(file_name)
+
         # команда конвертации
-        cmd = f' pyuic6.exe -x {file_path} -o {os.sep.join(os.getcwd().split(os.sep)[0:-1])}{os.sep}{file_name}.py'
-        #print(f'{os.path.join(str(path.split(os.sep)[0:-1]))}')
+        cmd = f'pyside6-uic {file_path} > {path}{os.sep}{file_name}.py'
+        #print(f'{os.sep.join(os.getcwd().split(os.sep)[0:-1])}')
 
         os.popen(cmd)
 
