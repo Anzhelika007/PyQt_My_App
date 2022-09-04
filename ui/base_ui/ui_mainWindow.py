@@ -15,9 +15,10 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QMainWindow,
-    QPushButton, QSizePolicy, QStackedWidget, QVBoxLayout,
-    QWidget)
+from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
+    QMainWindow, QPushButton, QSizePolicy, QStackedWidget,
+    QVBoxLayout, QWidget)
+import resource_rc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -34,9 +35,24 @@ class Ui_MainWindow(object):
         self.frame.setMaximumSize(QSize(16777215, 80))
         self.frame.setFrameShape(QFrame.StyledPanel)
         self.frame.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_2 = QHBoxLayout(self.frame)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalLayout_2.setContentsMargins(-1, 0, -1, 0)
         self.pushButton_7 = QPushButton(self.frame)
         self.pushButton_7.setObjectName(u"pushButton_7")
-        self.pushButton_7.setGeometry(QRect(30, 10, 93, 28))
+        self.pushButton_7.setMinimumSize(QSize(60, 40))
+        self.pushButton_7.setMaximumSize(QSize(60, 40))
+        icon = QIcon()
+        icon.addFile(u":/icons/menu.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.pushButton_7.setIcon(icon)
+
+        self.horizontalLayout_2.addWidget(self.pushButton_7)
+
+        self.label = QLabel(self.frame)
+        self.label.setObjectName(u"label")
+
+        self.horizontalLayout_2.addWidget(self.label)
+
 
         self.verticalLayout.addWidget(self.frame)
 
@@ -54,6 +70,7 @@ class Ui_MainWindow(object):
         self.widget.setFont(font)
         self.verticalLayout_2 = QVBoxLayout(self.widget)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.pushButton = QPushButton(self.widget)
         self.pushButton.setObjectName(u"pushButton")
         self.pushButton.setMinimumSize(QSize(100, 50))
@@ -105,9 +122,9 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.stackedWidget = QStackedWidget(self.widget_2)
         self.stackedWidget.setObjectName(u"stackedWidget")
-        self.page = QWidget()
-        self.page.setObjectName(u"page")
-        self.stackedWidget.addWidget(self.page)
+        self.pageHome = QWidget()
+        self.pageHome.setObjectName(u"pageHome")
+        self.stackedWidget.addWidget(self.pageHome)
         self.page_3 = QWidget()
         self.page_3.setObjectName(u"page_3")
         self.stackedWidget.addWidget(self.page_3)
@@ -138,7 +155,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(4)
+        self.stackedWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -146,12 +163,13 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.pushButton_7.setText(QCoreApplication.translate("MainWindow", u"PushButton", None))
+        self.pushButton_7.setText("")
+        self.label.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Home", None))
         self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Goals", None))
-        self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"Motivation", None))
-        self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"Home", None))
-        self.pushButton_5.setText(QCoreApplication.translate("MainWindow", u"Home", None))
-        self.pushButton_6.setText(QCoreApplication.translate("MainWindow", u"Home", None))
+        self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"Analis", None))
+        self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"Motivation", None))
+        self.pushButton_5.setText(QCoreApplication.translate("MainWindow", u"Habit tracker", None))
+        self.pushButton_6.setText(QCoreApplication.translate("MainWindow", u"Learning English", None))
     # retranslateUi
 

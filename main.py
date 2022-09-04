@@ -2,6 +2,7 @@ import sys
 from PySide6.QtWidgets import QApplication
 
 from ui.MainWindow import MainWindow
+from ui.MainWindowTable import MainTableWidget
 
 
 if __name__ == '__main__':
