@@ -2,7 +2,7 @@ import sys
 
 from PySide6.QtCore import QDate
 from PySide6.QtWidgets import QApplication, QHeaderView, QComboBox
-
+from PySide6.QtCore import Slot
 from PySide6.QtWidgets import QMainWindow, QVBoxLayout
 from PySide2extn.RoundProgressBar import roundProgressBar
 from ui.base_ui.ui_mainWindow import Ui_MainWindow
@@ -16,6 +16,13 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.ui.pageHome.show()
+
+        self.ui.pushButtonHome.clicked.connect(self.menu_home)
+        self.ui.pushButtonGoals.clicked.connect(self.menu_goals)
+        self.ui.pushButtonAnalis.clicked.connect(self.menu_analis)
+        self.ui.pushButtonMotivation.clicked.connect(self.menu_motivation)
+        self.ui.pushButtonHabit.clicked.connect(self.menu_hadit)
+        self.ui.pushButtonEnglish.clicked.connect(self.menu_english)
 
         # правим таблицу главной страницы
         self.ui.tableWidget.verticalHeader().setVisible(False);
@@ -38,7 +45,6 @@ class MainWindow(QMainWindow):
         self.ui.pushButtonDelRow.clicked.connect(self.del_row)
         self.ui.pushButtonClear.clicked.connect(self.clear_row)
 
-
     #=============================================================================
     # манипуляции с таблицей на главной странице
 
@@ -56,6 +62,7 @@ class MainWindow(QMainWindow):
         self.ui.tableWidget.setCellWidget(self.row_count, 4, comboBox_goals)
         self.row_count = self.ui.tableWidget.rowCount()
 
+
     def del_row(self):
         row = self.ui.tableWidget.currentRow()
         if row > -1:
@@ -68,6 +75,56 @@ class MainWindow(QMainWindow):
 
     # =============================================================================
 
+    # =============================================================================
+    # меню
+    def menu_home(self):
+        self.ui.pageGoals.hide()
+        self.ui.pageAnalis.hide()
+        self.ui.pageMotivation.hide()
+        self.ui.pageHadit.hide()
+        self.ui.pageEnglish.hide()
+        self.ui.pageHome.show()
+
+    def menu_goals(self):
+        self.ui.pageHome.hide()
+        self.ui.pageAnalis.hide()
+        self.ui.pageMotivation.hide()
+        self.ui.pageHadit.hide()
+        self.ui.pageEnglish.hide()
+        self.ui.pageGoals.show()
+
+    def menu_analis(self):
+        self.ui.pageHome.hide()
+        self.ui.pageGoals.hide()
+        self.ui.pageMotivation.hide()
+        self.ui.pageHadit.hide()
+        self.ui.pageEnglish.hide()
+        self.ui.pageAnalis.show()
+
+    def menu_motivation(self):
+        self.ui.pageHome.hide()
+        self.ui.pageGoals.hide()
+        self.ui.pageAnalis.hide()
+        self.ui.pageHadit.hide()
+        self.ui.pageEnglish.hide()
+        self.ui.pageMotivation.show()
+
+    def menu_hadit(self):
+        self.ui.pageHome.hide()
+        self.ui.pageGoals.hide()
+        self.ui.pageAnalis.hide()
+        self.ui.pageMotivation.hide()
+        self.ui.pageEnglish.hide()
+        self.ui.pageHadit.show()
+
+    def menu_english(self):
+        self.ui.pageHome.hide()
+        self.ui.pageGoals.hide()
+        self.ui.pageAnalis.hide()
+        self.ui.pageMotivation.hide()
+        self.ui.pageHadit.hide()
+        self.ui.pageEnglish.show()
+
         # посадили таблицу на главную страницу(создали экземпляр класса/ и добавили его)
         # layout_table = QVBoxLayout()
         # self.tableMain = MainTableWidget()
@@ -76,12 +133,7 @@ class MainWindow(QMainWindow):
         # self.ui.pageHome.setLayout(layout_table)
         # self.ui.pageHome.show()
 
-        # self.ui.pushButtonGoals.clicked.connect(self.ui.pageGoals.show)
-        # self.ui.pushButtonAnalis.clicked.connect(self.ui.pageAnalis.show)
-        # self.ui.pushButtonMotivation.clicked.connect(self.ui.pageMotivation.show)
-        # self.ui.pushButtonHome.clicked.connect(self.ui.pageHome.show)
-        # self.ui.pushButtonHabit.clicked.connect(self.ui.pageHadit.show)
-        # self.ui.pushButtonEnglish.clicked.connect(self.ui.pageEnglish.show)
+
 
 
 if __name__ == '__main__':
