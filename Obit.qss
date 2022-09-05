@@ -102,6 +102,7 @@ QLineEdit
 	border-style: solid;
 	border-width: 1px;
 	border-color: #4a4c68;
+	padding:0 10px;
 
 }
 /*-----QComboBox / QDateEdit-----*/
@@ -242,7 +243,6 @@ QScrollBar::sub-page:horizontal
 {
     width: 0px;
     background-color: transparent;
-
 }
 
 
@@ -251,7 +251,6 @@ QScrollBar:vertical
     background-color: transparent;
     width: 8px;
     margin: 0;
-
 }
 
 
@@ -275,4 +274,40 @@ QScrollBar::sub-page:vertical
 }
 #frameMenu{
     background-color: qlineargradient(spread:pad, x1:1, y1:0, x2:1, y2:1, stop:0 rgba(50, 61, 80, 255),stop:1 rgba(44, 49, 69, 255));
+}
+
+QProgressBar {
+    color: white;
+}
+
+QProgressBar::chunk {
+    background-color: #ff9c2b;
+    width: 10px;
+    margin: 0.5px;
+    border: 0px solid #4a4c68;
+}
+QTextEdit{
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+}
+QCheckBox::indicator{
+    background-color: #4a4c68;
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+}
+QCheckBox::indicator:unchecked:hover {
+    background-color: #ff9c2b;
+}
+
+QCheckBox::indicator:unchecked:pressed {
+    background-color: black;
+}
+
+QCheckBox::indicator:checked {
+    background-color: red;
+}
+QCheckBox::indicator:indeterminate:pressed {
+    background-color: #4a4c68;
 }
