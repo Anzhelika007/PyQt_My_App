@@ -104,9 +104,21 @@ QLineEdit
 	border-color: #4a4c68;
 
 }
-
+/*-----QComboBox / QDateEdit-----*/
+QComboBox, QComboBox QAbstractItemView,
+QDateEdit{
+	background-color: #232430;
+	color: #c1c1c1;
+	border: none;
+	font-size: 14px;
+}
+QDateEdit{
+    padding: 10px;
+    border:1px solid #4a4c68;
+}
 
 /*-----QTableView-----*/
+
 QTableView, 
 QHeaderView, 
 QTableView::item 
@@ -114,7 +126,14 @@ QTableView::item
 	background-color: #232430;
 	color: #c1c1c1;
 	border: none;
+	font-size: 14px;
 
+}
+QTableView::item
+{
+    height: 30px;
+	border:1px solid #4a4c68;
+	color: #c1c1c1;
 }
 
 
@@ -122,7 +141,6 @@ QTableView::item:selected
 { 
     background-color: #41424e;
     color: #c1c1c1;
-
 }
 
 
@@ -152,7 +170,6 @@ QTableView::indicator:checked{
 QTabWidget::pane 
 { 
     border: none;
-
 }
 
 
@@ -255,4 +272,7 @@ QScrollBar::sub-page:vertical
     height: 0px;
     background-color: transparent;
 
+}
+#frameMenu{
+    background-color: qlineargradient(spread:pad, x1:1, y1:0, x2:1, y2:1, stop:0 rgba(50, 61, 80, 255),stop:1 rgba(44, 49, 69, 255));
 }

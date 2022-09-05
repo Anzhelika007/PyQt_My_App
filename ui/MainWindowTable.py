@@ -1,9 +1,12 @@
-# import sys
-# from PySide6.QtWidgets import QApplication
+import sys
+from datetime import datetime, date
+
+from PySide6 import QtWidgets
+from PySide6.QtWidgets import QApplication
 
 
-from PySide6.QtCore import Slot, Signal
-from PySide6.QtWidgets import QTableWidget, QTableWidgetItem, QWidget
+from PySide6.QtCore import Slot, Signal, QDate
+from PySide6.QtWidgets import QTableWidget, QTableWidgetItem, QWidget, QDateEdit
 
 from ui.base_ui.ui_mainWindowTable import Ui_Form
 
@@ -16,6 +19,10 @@ class MainTableWidget(QWidget):
         self.ui = Ui_Form()
         # подгрузили файл
         self.ui.setupUi(self)
+        # задаем дату сейчас
+        qdate = QDate.currentDate() #получили текущую
+        print(qdate)
+        self.ui.dateEditTable.setDate(qdate)
 
 
         self.row_count = self.ui.tableWidget.rowCount()
@@ -39,10 +46,10 @@ class MainTableWidget(QWidget):
             self.ui.tableWidget.removeRow(self.row_count)
             self.row_count -= 1
 
-# if __name__ == '__main__':
-#     app = QApplication()
-#
-#     #app.setStyleSheet(open('SpyBot.qss', 'r').read())
-#     window = MainTableWidget()
-#     window.show()
-#     sys.exit(app.exec())
+if __name__ == '__main__':
+    app = QApplication()
+
+    #app.setStyleSheet(open('SpyBot.qss', 'r').read())
+    window = MainTableWidget()
+    window.show()
+    sys.exit(app.exec())
