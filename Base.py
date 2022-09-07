@@ -21,7 +21,7 @@ with sqlite3.connect('database.db') as db:
     cursor.execute("""CREATE TABLE IF NOT EXISTS mativation(
             user_login VARCHAR(20),
             goal VARCHAR(20),
-            description VARCHAR(150)
+            description VARCHAR(150),
             FOREIGN KEY(user_login) REFERENCES users(user_login)
             FOREIGN KEY(goal) REFERENCES goals(goal)
     )""")
