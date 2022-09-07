@@ -34,7 +34,8 @@ class Regisrtation(QWidget):
         return hashlib.md5(val.encode()).hexdigest()
 
     def message_info(self, title, message):
-        self.massage = QMessageBox().information(window, title, message)
+        self.massage = QMessageBox().information(self, title, message)
+
 
     def verification(self):
         self.login = self.ui.lineEdit.text()
@@ -42,7 +43,7 @@ class Regisrtation(QWidget):
 
         try:
             # подключаемся к базе
-            db = sqlite3.connect('../database.db')
+            db = sqlite3.connect('database.db')
             cursor = db.cursor()
 
             # передаем функцию в SQL аргументы: 1-алиаса, 2-кол значений, 3 сама функция
@@ -64,7 +65,7 @@ class Regisrtation(QWidget):
                 else:
                     self.message_info('Login', f'Hello  {self.login}!')
                     self.ui.lineEdit_2.setStyleSheet("background-color: rgba(0, 212, 155, 127);")
-                    pass
+                    return self.login
 
             cursor.close()
             db.close()
@@ -96,7 +97,7 @@ class Regisrtation(QWidget):
                     if '@' in self.email and '.' in self.email and len(self.email) > 4:
                         self.ui.lineEdit_3.setStyleSheet("background-color: rgba(0, 212, 155, 125);")
                         # подключаемся к базе
-                        db = sqlite3.connect('../database.db')
+                        db = sqlite3.connect('database.db')
                         cursor = db.cursor()
 
                         # передаем функцию в SQL аргументы: 1-алиаса, 2-кол значений, 3 сама функция
@@ -124,6 +125,6 @@ class Regisrtation(QWidget):
 if __name__ == '__main__':
     app = QApplication()
     app.setStyleSheet(open('../Obit.qss', 'r').read())
-    window = Regisrtation()
-    window.show()
+    reg = Regisrtation()
+    reg.show()
     sys.exit(app.exec())
