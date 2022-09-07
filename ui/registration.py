@@ -3,24 +3,23 @@ import sys
 import sqlite3
 # шифруем пароль
 import hashlib
-from string import octdigits
 
-from PySide6.QtCore import QDate
-from PySide6.QtWidgets import QApplication, QHeaderView, QComboBox, QFormLayout, QWidget, QMessageBox
-from PySide6.QtCore import Slot
-from PySide6.QtWidgets import QMainWindow, QVBoxLayout, QHBoxLayout
+from PySide6.QtWidgets import QApplication, QWidget, QMessageBox
+from PySide6.QtCore import Slot, Signal
 
 from ui.base_ui.ui_registation import Ui_Form
 
 
+
 class Regisrtation(QWidget):
+
     def __init__(self):
         super(Regisrtation, self).__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
 
         # данные пользователя
-        self.login = self.ui.lineEdit.text()
+        self.login : str = ''
         self.password = self.ui.lineEdit_2.text()
 
         self.ui.pushButton.clicked.connect(self.verification)
@@ -34,7 +33,7 @@ class Regisrtation(QWidget):
         return hashlib.md5(val.encode()).hexdigest()
 
     def message_info(self, title, message):
-        self.massage = QMessageBox().information(window, title, message)
+        self.massage = QMessageBox().information(self, title, message)
 
     def verification(self):
         self.login = self.ui.lineEdit.text()
@@ -42,7 +41,7 @@ class Regisrtation(QWidget):
 
         try:
             # подключаемся к базе
-            db = sqlite3.connect('../database.db')
+            db = sqlite3.connect('database.db')
             cursor = db.cursor()
 
             # передаем функцию в SQL аргументы: 1-алиаса, 2-кол значений, 3 сама функция
@@ -50,21 +49,20 @@ class Regisrtation(QWidget):
 
             cursor.execute("""SELECT user_login FROM users WHERE user_login = ?""", [self.login])
             if cursor.fetchone() is None:
-                self.ui.lineEdit.setStyleSheet("background-color: rgba(255, 0, 0, 127);")
+                self.ui.lineEdit.setStyleSheet("border-color: rgba(255, 0, 0, 127);")
                 self.message_info('Registration login', f'User {self.login} not registered')
             else:
-                self.ui.lineEdit.setStyleSheet("background-color: rgba(0, 212, 155, 127);")
+                self.ui.lineEdit.setStyleSheet("border-color: rgba(0, 212, 155, 127);")
                 cursor.execute(
                     'SELECT user_password FROM users WHERE user_login = ? AND user_password = coding_pass(?)',
                     [self.login, self.password])
                 if cursor.fetchone() is None:
-                    self.ui.lineEdit_2.setStyleSheet("background-color: rgba(255, 0, 0, 127);")
+                    self.ui.lineEdit_2.setStyleSheet("border-color: rgba(255, 0, 0, 127);")
                     self.message_info('Registration password', 'Password is incorrect or missing')
 
                 else:
+                    self.ui.lineEdit_2.setStyleSheet("border-color: rgba(0, 212, 155, 127);")
                     self.message_info('Login', f'Hello  {self.login}!')
-                    self.ui.lineEdit_2.setStyleSheet("background-color: rgba(0, 212, 155, 127);")
-                    pass
 
             cursor.close()
             db.close()
@@ -78,7 +76,7 @@ class Regisrtation(QWidget):
         self.users_values = (self.login, self.password, self.email)
 
         if len(self.login) > 3 and self.login[0].isupper():
-            self.ui.lineEdit.setStyleSheet("background-color: rgba(0, 212, 155, 125);")
+            self.ui.lineEdit.setStyleSheet("border-color: rgba(0, 212, 155, 125);")
             if len(self.password) > 5:
                 self.total_upper = False
                 self.total_lower = False
@@ -92,11 +90,11 @@ class Regisrtation(QWidget):
                         self.total_digit = True
                 if self.total_upper and self.total_lower and self.total_digit:
                     print(self.password)
-                    self.ui.lineEdit_2.setStyleSheet("background-color: rgba(0, 212, 155, 125);")
+                    self.ui.lineEdit_2.setStyleSheet("border-color: rgba(0, 212, 155, 125);")
                     if '@' in self.email and '.' in self.email and len(self.email) > 4:
-                        self.ui.lineEdit_3.setStyleSheet("background-color: rgba(0, 212, 155, 125);")
+                        self.ui.lineEdit_3.setStyleSheet("border-color: rgba(0, 212, 155, 125);")
                         # подключаемся к базе
-                        db = sqlite3.connect('../database.db')
+                        db = sqlite3.connect('database.db')
                         cursor = db.cursor()
 
                         # передаем функцию в SQL аргументы: 1-алиаса, 2-кол значений, 3 сама функция
@@ -109,6 +107,7 @@ class Regisrtation(QWidget):
                         cursor.close()
                         db.close()
                         self.message_info('Registration', f'User {self.login} successfully registered!')
+
                     else:
                         self.message_info('Registration email address', 'The mailing address must contain the characters "@" and "." Address length is at least 5 characters')
                 else:
@@ -124,6 +123,6 @@ class Regisrtation(QWidget):
 if __name__ == '__main__':
     app = QApplication()
     app.setStyleSheet(open('../Obit.qss', 'r').read())
-    window = Regisrtation()
-    window.show()
+    reg = Regisrtation()
+    reg.show()
     sys.exit(app.exec())
