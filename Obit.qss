@@ -320,7 +320,13 @@ QCheckBox::indicator:indeterminate:pressed {
 
 /*-----QMessageBox-----*/
 
-QMessageBox,
-QMessageBox::title{
-    background-color: #56576c;
+QMessageBox{
+    background-color: #232430;
+	color: #000000;
+	border-color: #000000;
+	padding: 100px;
+    font-weight: bold;
+    font-size: 14px;
+    width: 200px;
+    height: 200px;
 }

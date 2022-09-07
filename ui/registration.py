@@ -23,7 +23,6 @@ class Regisrtation(QWidget):
         self.login = self.ui.lineEdit.text()
         self.password = self.ui.lineEdit_2.text()
 
-
         self.ui.pushButton.clicked.connect(self.verification)
         self.ui.pushButton_2.clicked.connect(self.registration)
         # после вызова функции очистить
@@ -40,7 +39,6 @@ class Regisrtation(QWidget):
     def verification(self):
         self.login = self.ui.lineEdit.text()
         self.password = self.ui.lineEdit_2.text()
-        #print(self.login, self.password)
 
         try:
             # подключаемся к базе
@@ -52,16 +50,20 @@ class Regisrtation(QWidget):
 
             cursor.execute("""SELECT user_login FROM users WHERE user_login = ?""", [self.login])
             if cursor.fetchone() is None:
-                self.ui.lineEdit.setStyleSheet("background-color: rgb(255, 0, 0);")
-                print('Такого логина не существует!')
+                self.ui.lineEdit.setStyleSheet("background-color: rgba(255, 0, 0, 127);")
+                self.message_info('Registration login', f'User {self.login} not registered')
             else:
-                self.ui.lineEdit.setStyleSheet("background-color: rgb(0, 212, 155);")
-                cursor.execute('SELECT user_password FROM users WHERE user_login = ? AND user_password = coding_pass(?)', [self.login, self.password])
+                self.ui.lineEdit.setStyleSheet("background-color: rgba(0, 212, 155, 127);")
+                cursor.execute(
+                    'SELECT user_password FROM users WHERE user_login = ? AND user_password = coding_pass(?)',
+                    [self.login, self.password])
                 if cursor.fetchone() is None:
-                    self.ui.lineEdit_2.setStyleSheet("background-color: rgb(255, 0, 0);")
-                    print('Пароль неверный!')
+                    self.ui.lineEdit_2.setStyleSheet("background-color: rgba(255, 0, 0, 127);")
+                    self.message_info('Registration password', 'Password is incorrect or missing')
+
                 else:
-                    self.ui.lineEdit_2.setStyleSheet("background-color: rgb(0, 212, 155);")
+                    self.message_info('Login', f'Hello  {self.login}!')
+                    self.ui.lineEdit_2.setStyleSheet("background-color: rgba(0, 212, 155, 127);")
                     pass
 
             cursor.close()
@@ -74,10 +76,9 @@ class Regisrtation(QWidget):
         self.password = self.ui.lineEdit_2.text()
         self.email = self.ui.lineEdit_3.text()
         self.users_values = (self.login, self.password, self.email)
-        #print(self.login, self.password, self.email)
 
-        if self.login[0].isupper() and len(self.login) > 3:
-            self.ui.lineEdit.setStyleSheet("background-color: rgb(0, 212, 155);")
+        if len(self.login) > 3 and self.login[0].isupper():
+            self.ui.lineEdit.setStyleSheet("background-color: rgba(0, 212, 155, 125);")
             if len(self.password) > 5:
                 self.total_upper = False
                 self.total_lower = False
@@ -91,9 +92,9 @@ class Regisrtation(QWidget):
                         self.total_digit = True
                 if self.total_upper and self.total_lower and self.total_digit:
                     print(self.password)
-                    self.ui.lineEdit_2.setStyleSheet("background-color: rgb(0, 212, 155);")
+                    self.ui.lineEdit_2.setStyleSheet("background-color: rgba(0, 212, 155, 125);")
                     if '@' in self.email and '.' in self.email and len(self.email) > 4:
-                        self.ui.lineEdit_3.setStyleSheet("background-color: rgb(0, 212, 155);")
+                        self.ui.lineEdit_3.setStyleSheet("background-color: rgba(0, 212, 155, 125);")
                         # подключаемся к базе
                         db = sqlite3.connect('../database.db')
                         cursor = db.cursor()
@@ -105,20 +106,17 @@ class Regisrtation(QWidget):
                             "INSERT INTO users(user_login, user_password, user_email) VALUES (?,coding_pass(?),?)",
                             self.users_values)
                         db.commit()
-                        # cursor.execute("SELECT * FROM users")
-                        # k = cursor.fetchall()
-                        # print(k)
                         cursor.close()
                         db.close()
-                        self.message_info('Registration', f'Пользователь {self.login} успешно зарегистрирован!')
+                        self.message_info('Registration', f'User {self.login} successfully registered!')
                     else:
-                        self.message_info('Registration email address', 'Почта говно')
+                        self.message_info('Registration email address', 'The mailing address must contain the characters "@" and "." Address length is at least 5 characters')
                 else:
-                    self.message_info('Registration password', 'Пароль должен содержать 1 цифру Букву Верх и букву ниж')
+                    self.message_info('Registration password', 'The password must contain 1 uppercase letter, 1 lowercase letter, 1 number.')
             else:
-                self.message_info('Registration password','Пароль короткий')
+                self.message_info('Registration password', 'The password must contain 1 uppercase letter, 1 lowercase letter, 1 number. Its length is at least 6 characters')
         else:
-            self.message_info('Registration login', 'Логин начинается с большой буквы не менее 4 символов')
+            self.message_info('Registration login', 'Login starts with a capital letter and is at least 4 characters long')
 
         self.users_values = []
 
