@@ -2,18 +2,12 @@ import sys
 import time
 import PySide6
 from PySide6.QtGui import QMovie, QPixmap, QPainter
-from PySide6.QtWidgets import QApplication, QSplashScreen, QProgressBar
+from PySide6.QtWidgets import QApplication, QSplashScreen, QProgressBar, QWidget
 from PySide6.QtCore import QSize
 
 from ui.MainWindow import MainWindow
+from ui.registration import Regisrtation
 from ui.base_ui.ui_registation import Ui_Form
-from ui.base_ui.ui_registation import Ui_Form
-
-
-class Registration(Form):
-    def __init__(self):
-        self.
-
 
 
 # гиф
@@ -39,12 +33,20 @@ class MovieSplashScreen(QSplashScreen):
         pixmap = pixmap.scaled(self.my_size)
         painter.drawPixmap(0, 0, pixmap)
 
+class Start(QWidget):
+    def __init__(self):
+        super(Start, self).__init__()
+        self.ui = Regisrtation()
+
+
+
 
 if __name__ == '__main__':
     app = QApplication()
-
     app.setStyleSheet(open('Obit.qss', 'r').read())
-    # app.setStyleSheet(open('SpyBot.qss', 'r').read())
+
+    reg = Regisrtation()
+    reg.show()
 
     progressbar_value = 30
     path_to_gif = 'gif/102.gif.'
