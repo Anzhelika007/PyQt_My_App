@@ -24,7 +24,7 @@ import sqlite3
 # шифруем пароль
 import hashlib
 
-
+#===============================================================
 # гиф
 class MovieSplashScreen(QSplashScreen):
     my_size = QSize(800, 600)
@@ -48,7 +48,8 @@ class MovieSplashScreen(QSplashScreen):
         pixmap = pixmap.scaled(self.my_size)
         painter.drawPixmap(0, 0, pixmap)
 
-
+#==============================================================
+# регистрация -> заставка -> приложение
 class Regisrtation(QWidget):
     def __init__(self):
         super(Regisrtation, self).__init__()
@@ -58,23 +59,24 @@ class Regisrtation(QWidget):
         self.ui.pushButton.clicked.connect(self.verification)
         self.ui.pushButton_2.clicked.connect(self.registration)
         self.login = self.ui.lineEdit.text()
-        # после вызова функции очистить
+        # после вызова функции регистрации/верификации очистить
         self.ui.lineEdit.clear()
         self.ui.lineEdit_2.clear()
         self.ui.lineEdit_3.clear()
 
-
-
+    # кодируем пароль, чтобы не хранился в открытом виде
     def coding_pass(self, val):
         return hashlib.md5(val.encode()).hexdigest()
 
+    # отрисовка окна по вызову
     def message_info(self, title, message_text):
         self.message = QMessageBox().information(self, title, message_text)
 
+    # магия - > при успешной верификации запускаем экземпляр кл. отрисовки заставки передав в него гиф->по окончанию приложение
     def show_win(self, val):
         self.window = MainWindow(login=val)
         reg.hide()
-        progressbar_value = 30
+        progressbar_value = 10
         path_to_gif = 'gif/102.gif.'
 
         splash = MovieSplashScreen(path_to_gif)
