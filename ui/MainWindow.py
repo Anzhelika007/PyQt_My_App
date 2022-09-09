@@ -2,11 +2,11 @@ import sys
 
 from PySide6.QtCore import QDate
 from PySide6.QtWidgets import QApplication, QHeaderView, QComboBox
-from PySide6.QtCore import Slot
+from PySide6.QtCore import Slot, Signal
 from PySide6.QtWidgets import QMainWindow, QVBoxLayout
-from PySide2extn.RoundProgressBar import roundProgressBar
-from ui.base_ui.ui_mainWindow import Ui_MainWindow
 
+from ui.base_ui.ui_mainWindow import Ui_MainWindow
+from ui.registration import Regisrtation
 
 #  тип главного объекта QMainWindow - его наследуем
 class MainWindow(QMainWindow):
@@ -43,7 +43,11 @@ class MainWindow(QMainWindow):
         self.row_count = self.ui.tableWidget.rowCount()
         self.ui.pushButtonAddRow.clicked.connect(self.add_row)
         self.ui.pushButtonDelRow.clicked.connect(self.del_row)
-        self.ui.pushButtonClear.clicked.connect(self.clear_row)
+        self.add_row()
+        self.add_row()
+        self.add_row()
+
+
 
     #=============================================================================
     # манипуляции с таблицей на главной странице

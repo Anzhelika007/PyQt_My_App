@@ -22,6 +22,7 @@ class Regisrtation(QWidget):
         self.login : str = ''
         self.password = self.ui.lineEdit_2.text()
 
+
         self.ui.pushButton.clicked.connect(self.verification)
         self.ui.pushButton_2.clicked.connect(self.registration)
         # после вызова функции очистить
@@ -32,8 +33,13 @@ class Regisrtation(QWidget):
     def coding_pass(self, val):
         return hashlib.md5(val.encode()).hexdigest()
 
-    def message_info(self, title, message):
-        self.massage = QMessageBox().information(self, title, message)
+    def message_info(self, title, message_text):
+        self.message = QMessageBox().information(self, title, message_text)
+        print(self.message)
+        print(title)
+
+
+
 
     def verification(self):
         self.login = self.ui.lineEdit.text()
@@ -118,6 +124,7 @@ class Regisrtation(QWidget):
             self.message_info('Registration login', 'Login starts with a capital letter and is at least 4 characters long')
 
         self.users_values = []
+
 
 
 if __name__ == '__main__':

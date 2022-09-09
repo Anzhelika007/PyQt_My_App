@@ -54,7 +54,7 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset>
+          <iconset resource="../../resource.qrc">
            <normaloff>:/icons/menu.png</normaloff>:/icons/menu.png</iconset>
          </property>
         </widget>
@@ -397,7 +397,7 @@
           <item>
            <widget class="QStackedWidget" name="stackedWidget">
             <property name="currentIndex">
-             <number>1</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="pageHome">
              <property name="maximumSize">
