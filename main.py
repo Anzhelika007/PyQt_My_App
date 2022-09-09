@@ -54,18 +54,16 @@ class Regisrtation(QWidget):
         super(Regisrtation, self).__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
-        self.window = MainWindow()
-
-        # данные пользователя
-        self.login: str = ''
-        self.password = self.ui.lineEdit_2.text()
 
         self.ui.pushButton.clicked.connect(self.verification)
         self.ui.pushButton_2.clicked.connect(self.registration)
+        self.login = self.ui.lineEdit.text()
         # после вызова функции очистить
         self.ui.lineEdit.clear()
         self.ui.lineEdit_2.clear()
         self.ui.lineEdit_3.clear()
+
+
 
     def coding_pass(self, val):
         return hashlib.md5(val.encode()).hexdigest()
@@ -73,7 +71,8 @@ class Regisrtation(QWidget):
     def message_info(self, title, message_text):
         self.message = QMessageBox().information(self, title, message_text)
 
-    def show_win(self):
+    def show_win(self, val):
+        self.window = MainWindow(login=val)
         reg.hide()
         progressbar_value = 30
         path_to_gif = 'gif/102.gif.'
@@ -84,7 +83,6 @@ class Regisrtation(QWidget):
         progressbar.setTextVisible(False)
         # устанавливаем размеры прогрессбара
         progressbar.setGeometry(0, splash.my_size.height() - 50, splash.my_size.width(), 20)
-
         splash.show()
 
         for i in range(progressbar_value):
@@ -96,6 +94,8 @@ class Regisrtation(QWidget):
         time.sleep(0)
         self.window.show()
         splash.finish(self.window)
+        self.login
+        print(self.login)
 
     def verification(self):
         self.login = self.ui.lineEdit.text()
@@ -125,7 +125,7 @@ class Regisrtation(QWidget):
                 else:
                     self.ui.lineEdit_2.setStyleSheet("border-color: rgba(0, 212, 155, 127);")
                     self.message_info('Login', f'Hello  {self.login}!')
-                    self.show_win()
+                    self.show_win(self.login)
 
             cursor.close()
             db.close()
@@ -170,6 +170,7 @@ class Regisrtation(QWidget):
                         cursor.close()
                         db.close()
                         self.message_info('Registration', f'User {self.login} successfully registered!')
+                        self.show_win(self.login)
 
                     else:
                         self.message_info('Registration email address',

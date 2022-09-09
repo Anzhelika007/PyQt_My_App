@@ -11,10 +11,11 @@ from ui.registration import Regisrtation
 #  тип главного объекта QMainWindow - его наследуем
 class MainWindow(QMainWindow):
 
-    def __init__(self):
+    def __init__(self, login):
         super(MainWindow, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.ui.login = login
         self.ui.pageHome.show()
 
         self.ui.pushButtonHome.clicked.connect(self.menu_home)
@@ -33,7 +34,8 @@ class MainWindow(QMainWindow):
         self.ui.tableWidget.setColumnWidth(4, 100)
         self.ui.tableWidget.setColumnWidth(5, 100)
 
-
+        self.ui.labelName.setText(self.ui.login)
+        print(self.ui.login)
         # задаем дату сейчас
         qdate = QDate.currentDate()  # получили текущую
         #print(qdate)
@@ -65,6 +67,7 @@ class MainWindow(QMainWindow):
         self.ui.tableWidget.setCellWidget(self.row_count, 3, comboBox_status)
         self.ui.tableWidget.setCellWidget(self.row_count, 4, comboBox_goals)
         self.row_count = self.ui.tableWidget.rowCount()
+
 
 
     def del_row(self):
