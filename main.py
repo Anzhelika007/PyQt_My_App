@@ -1,24 +1,29 @@
 import sys
+from PySide6.QtWidgets import QApplication, QWidget, QMessageBox
+
+# =============================================================
+
+# =============================================================
+# отрисовка заставки
 import time
 import PySide6
 from PySide6.QtGui import QMovie, QPixmap, QPainter
-from PySide6.QtWidgets import QApplication, QSplashScreen, QProgressBar, QWidget, QMainWindow
 from PySide6.QtCore import QSize
+from PySide6.QtWidgets import QSplashScreen, QProgressBar
+# =============================================================
 
+# ==============================================================
+# импортируем  файлы для классов
 from ui.MainWindow import MainWindow
-from ui.registration import Regisrtation
 from ui.base_ui.ui_registation import Ui_Form
-######---------------------------------------------------------------
-import sys
+# ==============================================================
 
+# ==============================================================
+# работа с данными
 import sqlite3
 # шифруем пароль
 import hashlib
 
-from PySide6.QtWidgets import QApplication, QWidget, QMessageBox
-from PySide6.QtCore import Slot, Signal
-
-from ui.base_ui.ui_registation import Ui_Form
 
 # гиф
 class MovieSplashScreen(QSplashScreen):
@@ -51,11 +56,9 @@ class Regisrtation(QWidget):
         self.ui.setupUi(self)
         self.window = MainWindow()
 
-
         # данные пользователя
-        self.login : str = ''
+        self.login: str = ''
         self.password = self.ui.lineEdit_2.text()
-
 
         self.ui.pushButton.clicked.connect(self.verification)
         self.ui.pushButton_2.clicked.connect(self.registration)
@@ -93,7 +96,6 @@ class Regisrtation(QWidget):
         time.sleep(0)
         self.window.show()
         splash.finish(self.window)
-
 
     def verification(self):
         self.login = self.ui.lineEdit.text()
@@ -170,17 +172,19 @@ class Regisrtation(QWidget):
                         self.message_info('Registration', f'User {self.login} successfully registered!')
 
                     else:
-                        self.message_info('Registration email address', 'The mailing address must contain the characters "@" and "." Address length is at least 5 characters')
+                        self.message_info('Registration email address',
+                                          'The mailing address must contain the characters "@" and "." Address length is at least 5 characters')
                 else:
-                    self.message_info('Registration password', 'The password must contain 1 uppercase letter, 1 lowercase letter, 1 number.')
+                    self.message_info('Registration password',
+                                      'The password must contain 1 uppercase letter, 1 lowercase letter, 1 number.')
             else:
-                self.message_info('Registration password', 'The password must contain 1 uppercase letter, 1 lowercase letter, 1 number. Its length is at least 6 characters')
+                self.message_info('Registration password',
+                                  'The password must contain 1 uppercase letter, 1 lowercase letter, 1 number. Its length is at least 6 characters')
         else:
-            self.message_info('Registration login', 'Login starts with a capital letter and is at least 4 characters long')
+            self.message_info('Registration login',
+                              'Login starts with a capital letter and is at least 4 characters long')
 
         self.users_values = []
-
-
 
 
 if __name__ == '__main__':
@@ -189,26 +193,5 @@ if __name__ == '__main__':
 
     reg = Regisrtation()
     reg.show()
-    #
-    # progressbar_value = 30
-    # path_to_gif = 'gif/102.gif.'
-    #
-    # splash = MovieSplashScreen(path_to_gif)
-    # progressbar = QProgressBar(splash)
-    # progressbar.setMaximum(progressbar_value)
-    # progressbar.setTextVisible(False)
-    # # устанавливаем размеры прогрессбара
-    # progressbar.setGeometry(0, splash.my_size.height() - 50, splash.my_size.width(), 20)
-    #
-    # splash.show()
-    #
-    # for i in range(progressbar_value):
-    #     progressbar.setValue(i)
-    #     t = time.time()
-    #     while time.time() < t + 0.1:
-    #         app.processEvents()
-    #
-    # time.sleep(0)
-    #window = MainWindow()
-    #splash.finish(window)
+
     sys.exit(app.exec())

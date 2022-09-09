@@ -36,7 +36,7 @@ class MainWindow(QMainWindow):
 
         # задаем дату сейчас
         qdate = QDate.currentDate()  # получили текущую
-        print(qdate)
+        #print(qdate)
         self.ui.dateEditTable.setDate(qdate)
 
         # связываем событие нажатия на кнопку (таблица главной страницы)
