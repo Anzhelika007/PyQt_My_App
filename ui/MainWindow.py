@@ -2,19 +2,20 @@ import sys
 
 from PySide6.QtCore import QDate
 from PySide6.QtWidgets import QApplication, QHeaderView, QComboBox
-from PySide6.QtCore import Slot
+from PySide6.QtCore import Slot, Signal
 from PySide6.QtWidgets import QMainWindow, QVBoxLayout
-from PySide2extn.RoundProgressBar import roundProgressBar
-from ui.base_ui.ui_mainWindow import Ui_MainWindow
 
+from ui.base_ui.ui_mainWindow import Ui_MainWindow
+from ui.registration import Regisrtation
 
 #  тип главного объекта QMainWindow - его наследуем
 class MainWindow(QMainWindow):
 
-    def __init__(self):
+    def __init__(self, login):
         super(MainWindow, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.ui.login = login
         self.ui.pageHome.show()
 
         self.ui.pushButtonHome.clicked.connect(self.menu_home)
@@ -33,17 +34,22 @@ class MainWindow(QMainWindow):
         self.ui.tableWidget.setColumnWidth(4, 100)
         self.ui.tableWidget.setColumnWidth(5, 100)
 
-
+        self.ui.labelName.setText(self.ui.login)
+        print(self.ui.login)
         # задаем дату сейчас
         qdate = QDate.currentDate()  # получили текущую
-        print(qdate)
+        #print(qdate)
         self.ui.dateEditTable.setDate(qdate)
 
         # связываем событие нажатия на кнопку (таблица главной страницы)
         self.row_count = self.ui.tableWidget.rowCount()
         self.ui.pushButtonAddRow.clicked.connect(self.add_row)
         self.ui.pushButtonDelRow.clicked.connect(self.del_row)
-        self.ui.pushButtonClear.clicked.connect(self.clear_row)
+        self.add_row()
+        self.add_row()
+        self.add_row()
+
+
 
     #=============================================================================
     # манипуляции с таблицей на главной странице
@@ -61,6 +67,7 @@ class MainWindow(QMainWindow):
         self.ui.tableWidget.setCellWidget(self.row_count, 3, comboBox_status)
         self.ui.tableWidget.setCellWidget(self.row_count, 4, comboBox_goals)
         self.row_count = self.ui.tableWidget.rowCount()
+
 
 
     def del_row(self):

@@ -26,7 +26,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(867, 650)
+        MainWindow.resize(881, 660)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout_20 = QVBoxLayout(self.centralwidget)
@@ -53,10 +53,19 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_2.addItem(self.horizontalSpacer)
 
-        self.label = QLabel(self.frame)
-        self.label.setObjectName(u"label")
+        self.labelRowMativation = QLabel(self.frame)
+        self.labelRowMativation.setObjectName(u"labelRowMativation")
 
-        self.horizontalLayout_2.addWidget(self.label)
+        self.horizontalLayout_2.addWidget(self.labelRowMativation)
+
+        self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_2.addItem(self.horizontalSpacer_5)
+
+        self.labelName = QLabel(self.frame)
+        self.labelName.setObjectName(u"labelName")
+
+        self.horizontalLayout_2.addWidget(self.labelName)
 
 
         self.verticalLayout_20.addWidget(self.frame)
@@ -947,7 +956,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -956,7 +965,8 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.pushButton_7.setText("")
-        self.label.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
+        self.labelRowMativation.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
+        self.labelName.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.pushButtonHome.setText(QCoreApplication.translate("MainWindow", u"Home", None))
         self.pushButtonGoals.setText(QCoreApplication.translate("MainWindow", u"Goals", None))
         self.pushButtonAnalis.setText(QCoreApplication.translate("MainWindow", u"Analis", None))
