@@ -5,14 +5,15 @@ from PySide6.QtCore import Slot, Signal
 
 from ui.base_ui.ui_motivation import Ui_Form
 
+
 class Motivation(QWidget):
 
-    def __init__(self):
+    def __init__(self, login):
         super(Motivation, self).__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
-
-
+        self.login = login
+        self.ui.labelTitle.setText('hhhhhhhhhh')
 
 
 

@@ -9,10 +9,11 @@ from ui.base_ui.ui_mainWindow import Ui_MainWindow
 from ui.goal import Goal
 from ui.motivation import Motivation
 
+
 #  тип главного объекта QMainWindow - его наследуем
 class MainWindow(QMainWindow, QWidget):
 
-    def __init__(self, login='yyyyyyyyyyyyy'):
+    def __init__(self, login='Qqqq'):
         super(MainWindow, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
@@ -54,7 +55,6 @@ class MainWindow(QMainWindow, QWidget):
 
         # задаем и удаляем цель(сразу добавляем мотивацию для каждой цели)
         self.ui.pushButton.clicked.connect(self.add_goal)
-        #self.goal.pushButtonAddTasks.cliked.connect(self.add_tasks_calendar)
 
     # =============================================================================
     # манипуляции с таблицей на главной странице
@@ -138,25 +138,20 @@ class MainWindow(QMainWindow, QWidget):
         self.ui.pageEnglish.show()
 
     # =======================================================================
+
     # страница Цели
     def add_goal(self):
         self.goal = Goal(self.login, self.qdate)
         self.ui.verticalLayout_goals.addWidget(self.goal)
         self.ui.verticalLayout_goals.setAlignment(Qt.AlignTop)
+        self.motivation = Motivation(self.login)
+        self.ui.verticalLayout_motivation.addWidget(self.motivation)
+        self.ui.verticalLayout_motivation.setAlignment(Qt.AlignTop)
 
-    def add_tasks_calendar(self):
-        ...
 
-    def add_motivation(self):
-        ...
 
-        # посадили таблицу на главную страницу(создали экземпляр класса/ и добавили его)
-        # layout_table = QVBoxLayout()
-        # self.tableMain = MainTableWidget()
-        # layout_table.addWidget(self.tableMain)
-        # layout_table.addStretch()
-        # self.ui.pageHome.setLayout(layout_table)
-        # self.ui.pageHome.show()
+
+
 
 
 if __name__ == '__main__':

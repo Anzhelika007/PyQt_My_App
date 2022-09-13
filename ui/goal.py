@@ -1,5 +1,6 @@
 import sys
-import time
+import sqlite3
+
 from datetime import timedelta, date
 
 import PySide6
@@ -46,13 +47,21 @@ class Goal(QWidget):
                         list_day.append(key)
 
     def date_task(self, date_start, date_end, list_week, list_date):
+        # прогоняем дни периода цели и проверяем на соответствие ранее заданным дням недели
         while date_start <= date_end:
             if date_start.weekday() in list_week:
                 # получаем список дат задания за заданный период
-                list_date.append(date_start.strftime('%y-%m-%d'))
+                list_date.append(date_start.strftime('%Y-%m-%d'))
             date_start += timedelta(days=1)
 
+    def add_info(self, task_row, task_date, user, goal, task, start_date, end_date, priority):
+        # формируем список данных
+        for i in task_date:
+            task_row.append(
+                (user, goal, task, i, priority, start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d')))
+
     def add_goals_base(self):
+        self.priority = self.ui.comboBoxPriority.currentText()
         if len(self.ui.lineEditGoal_4.text()) < 3:
             self.message_info_goals('Goal', "Fill in the 'Goal' field (must contain at least 3 characters)")
         elif len(self.ui.lineEditTask_1.text()) < 3 and 0 < len(self.ui.lineEditTask_2.text()) < 3 and 0 < len(
@@ -77,7 +86,6 @@ class Goal(QWidget):
         self.range_checkBox(self.task2_checbox, self.task2_week_days, self.task_week_day)
         self.range_checkBox(self.task3_checbox, self.task3_week_days, self.task_week_day)
 
-
         # проверяем заполнены ли чексбоксы или цели к ним
         if len(self.task1_week_days) == 0:
             self.message_info_goals('Tasks days', 'You must devote at least 1 time per week to the task')
@@ -89,23 +97,69 @@ class Goal(QWidget):
             # форматируем дату для обработки
             self.date_start = (self.ui.dateEdit_6.date()).toPython()
             self.date_end = (self.ui.dateEdit_7.date()).toPython()
-            # print(type(self.date_start))
-            # print('njn', self.date_start)
-            # собираем даты задачи
+
+            # собираем даты задач в списки
             self.date_task(self.date_start, self.date_end, self.task1_week_days, self.task1_date)
-            print(self.task1_date)
+            # print(self.task1_date)
             if len(self.task2_week_days) > 0:
                 self.date_task(self.date_start, self.date_end, self.task2_week_days, self.task2_date)
-                print(self.task2_date)
+                # print(self.task2_date)
             if len(self.task3_week_days) > 0:
                 self.date_task(self.date_start, self.date_end, self.task3_week_days, self.task3_date)
-                print(self.task3_date)
+                # print(self.task3_date)
 
+        # собираем строки для занисения в базу данных
+        self.task1_row = []
+        self.task2_row = []
+        self.task3_row = []
+        self.add_info(self.task1_row, self.task1_date, self.login, self.ui.lineEditGoal_4.text(),
+                      self.ui.lineEditTask_1.text(), self.date_start, self.date_end, self.priority)
+        if len(self.task2_date) > 0:
+            self.add_info(self.task2_row, self.task2_date, self.login, self.ui.lineEditGoal_4.text(),
+                          self.ui.lineEditTask_2.text(), self.date_start, self.date_end, self.priority)
+        if len(self.task3_date) > 0:
+            self.add_info(self.task3_row, self.task3_date, self.login, self.ui.lineEditGoal_4.text(),
+                          self.ui.lineEditTask_3.text(), self.date_start, self.date_end, self.priority)
 
-            qdate = QDate.currentDate()
-            pydate = qdate.toPython()
+        try:
+            # подключаемся к базе
+            db = sqlite3.connect('../database.db')
+            cursor = db.cursor()
 
-            print('то что нужно', pydate, pydate.weekday())
+            # передаем функцию в SQL аргументы: 1-алиаса, 2-кол значений, 3 сама функция
+            # db.create_function("coding_pass", 1, self.coding_pass)
+
+            cursor.executemany(
+                '''INSERT INTO goals(user_login, goal, goal_task, date_task, priority, date_start, date_end) VALUES (?,?,?,?,?,?,?)''',
+                self.task1_row)
+            if len(self.task2_row) > 0:
+                cursor.executemany(
+                    '''INSERT INTO goals(user_login, goal, goal_task, date_task, priority, date_start, date_end) VALUES (?,?,?,?,?,?,?)''',
+                    self.task2_row)
+            if len(self.task3_row) > 0:
+                cursor.executemany(
+                    '''INSERT INTO goals(user_login, goal, goal_task, date_task, priority, date_start, date_end) VALUES (?,?,?,?,?,?,?)''',
+                    self.task3_row)
+
+            cursor.execute('''SELECT * FROM goals''')
+            k = cursor.fetchall()
+            print('база', k)
+            cursor.close()
+            db.close()
+        except sqlite3.Error as e:
+            print('Error', e)
+
+        self.title = self.ui.lineEditGoal_4.text()
+        return(self.title)
+
+        # print(self.task1_row)
+        # print(self.task2_row)
+        # print(self.task3_row)
+
+        # qdate = QDate.currentDate()
+        # pydate = qdate.toPython()
+        #
+        # print('то что нужно', pydate, pydate.weekday())
 
         # self.ui.pushButton_14.connect()
         # ловим изменения title цели (textChanged - генерит каждый символ) поэтому editingFinished
@@ -116,17 +170,6 @@ class Goal(QWidget):
 
     # def message_info_goals(self, title, message_text):
     #     self.message_goals = QMessageBox().information(self, title, message_text)
-    #
-    # def lineEdit_changed_title(self):
-    #     # после изменения фокуса - проверяем значение
-    #     if len(self.ui.lineEditGoal_4.text()) < 3:
-    #         self.message_info_goals('Title', 'ВВеди цель нормально')
-    #         self.ui.lineEditTask_1.setMaxLength(0)
-    #     else:
-    #         self.ui.lineEditTask_1.setMask('xxxxxxxxXXXXXXXXXX')
-    #
-    #
-    #
 
 
 if __name__ == '__main__':

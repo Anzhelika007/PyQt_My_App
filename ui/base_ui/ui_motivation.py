@@ -32,14 +32,14 @@ class Ui_Form(object):
         self.verticalLayout_17 = QVBoxLayout(self.frame_9)
         self.verticalLayout_17.setObjectName(u"verticalLayout_17")
         self.verticalLayout_17.setContentsMargins(0, 0, 30, 0)
-        self.label_4 = QLabel(self.frame_9)
-        self.label_4.setObjectName(u"label_4")
-        self.label_4.setMinimumSize(QSize(30, 0))
+        self.labelTitle = QLabel(self.frame_9)
+        self.labelTitle.setObjectName(u"labelTitle")
+        self.labelTitle.setMinimumSize(QSize(30, 0))
         font = QFont()
         font.setPointSize(14)
-        self.label_4.setFont(font)
+        self.labelTitle.setFont(font)
 
-        self.verticalLayout_17.addWidget(self.label_4)
+        self.verticalLayout_17.addWidget(self.labelTitle)
 
         self.lineEdit_2 = QLineEdit(self.frame_9)
         self.lineEdit_2.setObjectName(u"lineEdit_2")
@@ -60,7 +60,7 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
-        self.label_4.setText(QCoreApplication.translate("Form", u"TextLabel", None))
+        self.labelTitle.setText(QCoreApplication.translate("Form", u"Q", None))
         self.lineEdit_2.setPlaceholderText(QCoreApplication.translate("Form", u"Write down your highest expectations", None))
     # retranslateUi
 

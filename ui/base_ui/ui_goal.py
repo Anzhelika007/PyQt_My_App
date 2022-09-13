@@ -24,7 +24,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(669, 230)
+        Form.resize(598, 222)
         Form.setMinimumSize(QSize(0, 222))
         Form.setMaximumSize(QSize(16777215, 230))
         self.verticalLayout = QVBoxLayout(Form)
