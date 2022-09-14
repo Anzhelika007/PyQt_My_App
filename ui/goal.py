@@ -11,7 +11,7 @@ from PySide6.QtCore import QDate
 from PySide6.QtCore import Slot, Signal
 
 from ui.base_ui.ui_goal import Ui_Form
-
+from ui.motivation import Motivation
 
 class Goal(QWidget):
 
@@ -143,14 +143,14 @@ class Goal(QWidget):
 
             cursor.execute('''SELECT * FROM goals''')
             k = cursor.fetchall()
+            db.commit()
             print('база', k)
             cursor.close()
             db.close()
         except sqlite3.Error as e:
             print('Error', e)
 
-        self.title = self.ui.lineEditGoal_4.text()
-        return(self.title)
+
 
         # print(self.task1_row)
         # print(self.task2_row)

@@ -8,12 +8,13 @@ from ui.base_ui.ui_motivation import Ui_Form
 
 class Motivation(QWidget):
 
-    def __init__(self, login):
+    def __init__(self, login, title):
         super(Motivation, self).__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
         self.login = login
-        self.ui.labelTitle.setText('hhhhhhhhhh')
+        self.title = title
+        self.ui.labelTitle.setText(title)
 
 
 

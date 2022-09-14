@@ -413,9 +413,9 @@ class Ui_MainWindow(object):
         self.frame_10.setMaximumSize(QSize(16777215, 50))
         self.frame_10.setFrameShape(QFrame.StyledPanel)
         self.frame_10.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_8 = QVBoxLayout(self.frame_10)
-        self.verticalLayout_8.setObjectName(u"verticalLayout_8")
-        self.verticalLayout_8.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_7 = QHBoxLayout(self.frame_10)
+        self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
+        self.horizontalLayout_7.setContentsMargins(0, 0, 0, 0)
         self.label_5 = QLabel(self.frame_10)
         self.label_5.setObjectName(u"label_5")
         self.label_5.setMinimumSize(QSize(0, 50))
@@ -425,7 +425,19 @@ class Ui_MainWindow(object):
         font5.setBold(True)
         self.label_5.setFont(font5)
 
-        self.verticalLayout_8.addWidget(self.label_5)
+        self.horizontalLayout_7.addWidget(self.label_5)
+
+        self.pushButtonCreate = QPushButton(self.frame_10)
+        self.pushButtonCreate.setObjectName(u"pushButtonCreate")
+        self.pushButtonCreate.setFont(font2)
+
+        self.horizontalLayout_7.addWidget(self.pushButtonCreate)
+
+        self.pushButton_12 = QPushButton(self.frame_10)
+        self.pushButton_12.setObjectName(u"pushButton_12")
+        self.pushButton_12.setFont(font2)
+
+        self.horizontalLayout_7.addWidget(self.pushButton_12)
 
 
         self.verticalLayout_7.addWidget(self.frame_10)
@@ -442,7 +454,7 @@ class Ui_MainWindow(object):
         self.scrollAreaMotivation.setWidgetResizable(True)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 566, 478))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 586, 478))
         self.verticalLayout_16 = QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_16.setObjectName(u"verticalLayout_16")
         self.verticalLayout_16.setContentsMargins(0, 0, 0, 0)
@@ -666,6 +678,8 @@ class Ui_MainWindow(object):
         self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Add", None))
         self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Del", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"What will you get by reaching the goal?", None))
+        self.pushButtonCreate.setText(QCoreApplication.translate("MainWindow", u"Create", None))
+        self.pushButton_12.setText(QCoreApplication.translate("MainWindow", u"Save", None))
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"\u043d\u0430\u0447\u0430\u043b\u043e", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"\u0443\u0436\u0435", None))
