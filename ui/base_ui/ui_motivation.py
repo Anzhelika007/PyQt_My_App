@@ -22,7 +22,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(570, 149)
+        Form.resize(563, 149)
         self.verticalLayout = QVBoxLayout(Form)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.frame_9 = QFrame(Form)
@@ -31,7 +31,7 @@ class Ui_Form(object):
         self.frame_9.setFrameShadow(QFrame.Raised)
         self.verticalLayout_17 = QVBoxLayout(self.frame_9)
         self.verticalLayout_17.setObjectName(u"verticalLayout_17")
-        self.verticalLayout_17.setContentsMargins(0, 0, 30, 0)
+        self.verticalLayout_17.setContentsMargins(0, 0, 10, 0)
         self.labelTitle = QLabel(self.frame_9)
         self.labelTitle.setObjectName(u"labelTitle")
         self.labelTitle.setMinimumSize(QSize(30, 0))

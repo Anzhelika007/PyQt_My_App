@@ -23,7 +23,7 @@ with sqlite3.connect('database.db') as db:
     k = cursor.fetchall()
     print(k)
 
-    cursor.execute("""CREATE TABLE IF NOT EXISTS mativation(
+    cursor.execute("""CREATE TABLE IF NOT EXISTS motivation(
             user_login VARCHAR(20),
             goal VARCHAR(20),
             description VARCHAR(150),

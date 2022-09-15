@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>881</width>
+    <width>958</width>
     <height>660</height>
    </rect>
   </property>
@@ -854,7 +854,7 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="pushButton_2">
+                  <widget class="QPushButton" name="pushButtonDel">
                    <property name="minimumSize">
                     <size>
                      <width>100</width>
@@ -895,7 +895,7 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>588</width>
+                   <width>685</width>
                    <height>470</height>
                   </rect>
                  </property>
@@ -1000,7 +1000,7 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="pushButton_12">
+                  <widget class="QPushButton" name="pushButtonSave">
                    <property name="font">
                     <font>
                      <pointsize>12</pointsize>
@@ -1017,7 +1017,7 @@
               <item>
                <widget class="QScrollArea" name="scrollAreaMotivation">
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="Expanding" vsizetype="Ignored">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
@@ -1039,7 +1039,7 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>586</width>
+                   <width>663</width>
                    <height>478</height>
                   </rect>
                  </property>

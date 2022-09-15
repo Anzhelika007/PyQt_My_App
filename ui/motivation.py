@@ -20,7 +20,6 @@ class Motivation(QWidget):
 
 
 
-
 if __name__ == '__main__':
     app = QApplication()
     app.setStyleSheet(open('../Obit.qss', 'r').read())

@@ -26,7 +26,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(881, 660)
+        MainWindow.resize(958, 660)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout_3 = QVBoxLayout(self.centralwidget)
@@ -365,16 +365,16 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_5.addWidget(self.pushButton)
 
-        self.pushButton_2 = QPushButton(self.frame_7)
-        self.pushButton_2.setObjectName(u"pushButton_2")
-        self.pushButton_2.setMinimumSize(QSize(100, 0))
-        self.pushButton_2.setMaximumSize(QSize(150, 16777215))
+        self.pushButtonDel = QPushButton(self.frame_7)
+        self.pushButtonDel.setObjectName(u"pushButtonDel")
+        self.pushButtonDel.setMinimumSize(QSize(100, 0))
+        self.pushButtonDel.setMaximumSize(QSize(150, 16777215))
         font4 = QFont()
         font4.setPointSize(12)
         font4.setBold(False)
-        self.pushButton_2.setFont(font4)
+        self.pushButtonDel.setFont(font4)
 
-        self.horizontalLayout_5.addWidget(self.pushButton_2)
+        self.horizontalLayout_5.addWidget(self.pushButtonDel)
 
 
         self.verticalLayout_6.addWidget(self.frame_7, 0, Qt.AlignTop)
@@ -385,7 +385,7 @@ class Ui_MainWindow(object):
         self.scrollAreaGoals.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 588, 470))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 685, 470))
         self.verticalLayout_13 = QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_13.setObjectName(u"verticalLayout_13")
         self.verticalLayout_13.setContentsMargins(0, 0, 0, 0)
@@ -433,18 +433,18 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_7.addWidget(self.pushButtonCreate)
 
-        self.pushButton_12 = QPushButton(self.frame_10)
-        self.pushButton_12.setObjectName(u"pushButton_12")
-        self.pushButton_12.setFont(font2)
+        self.pushButtonSave = QPushButton(self.frame_10)
+        self.pushButtonSave.setObjectName(u"pushButtonSave")
+        self.pushButtonSave.setFont(font2)
 
-        self.horizontalLayout_7.addWidget(self.pushButton_12)
+        self.horizontalLayout_7.addWidget(self.pushButtonSave)
 
 
         self.verticalLayout_7.addWidget(self.frame_10)
 
         self.scrollAreaMotivation = QScrollArea(self.pageMotivation)
         self.scrollAreaMotivation.setObjectName(u"scrollAreaMotivation")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Ignored)
+        sizePolicy3 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         sizePolicy3.setHorizontalStretch(0)
         sizePolicy3.setVerticalStretch(0)
         sizePolicy3.setHeightForWidth(self.scrollAreaMotivation.sizePolicy().hasHeightForWidth())
@@ -454,7 +454,7 @@ class Ui_MainWindow(object):
         self.scrollAreaMotivation.setWidgetResizable(True)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 586, 478))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 663, 478))
         self.verticalLayout_16 = QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_16.setObjectName(u"verticalLayout_16")
         self.verticalLayout_16.setContentsMargins(0, 0, 0, 0)
@@ -676,10 +676,10 @@ class Ui_MainWindow(object):
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Progress Today", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"Write the main goals (preferably no more than 3)", None))
         self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Add", None))
-        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Del", None))
+        self.pushButtonDel.setText(QCoreApplication.translate("MainWindow", u"Del", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"What will you get by reaching the goal?", None))
         self.pushButtonCreate.setText(QCoreApplication.translate("MainWindow", u"Create", None))
-        self.pushButton_12.setText(QCoreApplication.translate("MainWindow", u"Save", None))
+        self.pushButtonSave.setText(QCoreApplication.translate("MainWindow", u"Save", None))
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"\u043d\u0430\u0447\u0430\u043b\u043e", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"\u0443\u0436\u0435", None))

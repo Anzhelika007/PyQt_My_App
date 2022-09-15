@@ -31,6 +31,7 @@ class MainWindow(QMainWindow, QWidget):
 
         # задаем и удаляем цель(сразу добавляем мотивацию для каждой цели)
         self.ui.pushButton.clicked.connect(self.add_goal)
+        self.ui.pushButtonDel.clicked.connect(self.del_goal)
         self.ui.pushButtonCreate.clicked.connect(self.add_motivation)
 
         # правим таблицу главной страницы
@@ -82,6 +83,23 @@ class MainWindow(QMainWindow, QWidget):
                 self.goals_list.remove('none')
                 self.goals_list.insert(0, 'none')
 
+    def sql_motivation(self):
+        try:
+            # подключаемся к базе
+            db = sqlite3.connect('../database.db')
+            cursor = db.cursor()
+
+            self.list_motivation = cursor.executemany(
+                '''SELECT goal, description FROM motivation GROUP BY goal HAVING user_login == self.login''')
+
+            k = cursor.fetchall()
+            db.commit()
+            print('база-мотиватия', k)
+            cursor.close()
+            db.close()
+        except sqlite3.Error as e:
+            print('Error', e)
+
     def update_table(self):
         try:
             # подключаемся к базе
@@ -106,6 +124,10 @@ class MainWindow(QMainWindow, QWidget):
         self.ui.verticalLayout_goals.addWidget(self.goal)
         self.ui.verticalLayout_goals.setAlignment(Qt.AlignTop)
 
+    def del_goal(self):
+        self.widget = self.sender()
+        self.ui.verticalLayout_goals.removeWidget(self.widget)
+
     # ==============================================================================
     # страница мотивация
     def add_motivation(self):
@@ -119,7 +141,10 @@ class MainWindow(QMainWindow, QWidget):
                 self.ui.verticalLayout_motivation.setAlignment(Qt.AlignTop)
 
     def save_motivation(self):
-        ...
+        print(self.ui.verticalLayout_motivation.__dict__)
+        print(self.ui.motivation.lineEdit_2.text())
+        # self.aaa = self.ui.verticalLayout_motivation.findChildren()
+        # print(self.aaa)
 
     # =============================================================================
     # манипуляции с таблицей на главной странице
