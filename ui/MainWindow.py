@@ -42,9 +42,7 @@ class MainWindow(QMainWindow, QWidget):
         self.ui.tableWidget.setColumnWidth(4, 100)
         self.ui.tableWidget.setColumnWidth(5, 100)
 
-
         self.ui.labelName.setText(self.login)
-        print(self.login)
         # задаем дату сейчас
         self.qdate = QDate.currentDate()  # получили текущую
         self.ui.dateEditTable.setDate(self.qdate)
@@ -58,16 +56,10 @@ class MainWindow(QMainWindow, QWidget):
         # self.add_row()
         # self.add_row()
 
-
-    #==============================================================================
-    # страница Цели
-    def add_goal(self):
-        self.goal = Goal(self.login, self.qdate)
-        self.ui.verticalLayout_goals.addWidget(self.goal)
-        self.ui.verticalLayout_goals.setAlignment(Qt.AlignTop)
-
-    #==============================================================================
-    def add_motivation(self):
+    # ==============================================================================
+    # запросы SQL
+    def show_goal(self):
+        self.goals_list = set(self.goals_list)
         try:
             # подключаемся к базе
             self.db = sqlite3.connect('../database.db')
@@ -76,22 +68,39 @@ class MainWindow(QMainWindow, QWidget):
             self.goals = cursor.execute('''SELECT goal FROM goals''')
 
             for i in self.goals.fetchall():
-                self.goals_list += (list(i))
-            print('база - цели',self.goals_list)
-            self.goals = []
+                for j in i:
+                    self.goals_list.add(j)
+            print('база - цели', self.goals_list)
             cursor.close()
             self.db.close()
         except sqlite3.Error as e:
             print('Error', e)
 
+        self.goals_list = list(self.goals_list)
+        for i in self.goals_list:
+            if i == 'none':
+                self.goals_list.remove('none')
+                self.goals_list.insert(0, 'none')
+    # ==============================================================================
+    # страница Цели
+    def add_goal(self):
+        self.goal = Goal(self.login, self.qdate)
+        self.ui.verticalLayout_goals.addWidget(self.goal)
+        self.ui.verticalLayout_goals.setAlignment(Qt.AlignTop)
+
+    # ==============================================================================
+    def add_motivation(self):
+        # переопределили список как множество
+        self.show_goal()
+
         for title in self.goals_list:
-            if title not in self.goals_list and title != 'none':
-                self.goals_list += title
+            if 'none' not in title:
                 self.motivation = Motivation(self.login, title)
                 self.ui.verticalLayout_motivation.addWidget(self.motivation)
                 self.ui.verticalLayout_motivation.setAlignment(Qt.AlignTop)
 
     def save_motivation(self):
+        ...
 
     # =============================================================================
     # манипуляции с таблицей на главной странице
@@ -104,6 +113,7 @@ class MainWindow(QMainWindow, QWidget):
 
         comboBox_priority.addItems(['Low', 'Medium', 'High'])
         comboBox_status.addItems(['Not done', 'To do', 'Done'])
+        self.show_goal()
         self.comboBox_goals.addItems(self.goals_list)
         self.ui.tableWidget.setCellWidget(self.row_count, 2, comboBox_priority)
         self.ui.tableWidget.setCellWidget(self.row_count, 3, comboBox_status)
@@ -121,6 +131,26 @@ class MainWindow(QMainWindow, QWidget):
         while self.row_count > -1:
             self.ui.tableWidget.removeRow(self.row_count)
             self.row_count -= 1
+
+    # def update_table(self):
+    #     try:
+    #         # подключаемся к базе
+    #         db = sqlite3.connect('../database.db')
+    #         cursor = db.cursor()
+    #
+    #         # передаем функцию в SQL аргументы: 1-алиаса, 2-кол значений, 3 сама функция
+    #         # db.create_function("coding_pass", 1, self.coding_pass)
+    #
+    #         self.task_list = cursor.executemany(
+    #             '''SELECT date_task, goal_task, priority, goal FROM goals WHERE user_login == self.login''')
+    #
+    #         k = cursor.fetchall()
+    #         db.commit()
+    #         print('база', k)
+    #         cursor.close()
+    #         db.close()
+    #     except sqlite3.Error as e:
+    #         print('Error', e)
 
     # =============================================================================
 
@@ -175,7 +205,6 @@ class MainWindow(QMainWindow, QWidget):
         self.ui.pageEnglish.show()
 
     # =======================================================================
-
 
 
 if __name__ == '__main__':
