@@ -81,6 +81,24 @@ class MainWindow(QMainWindow, QWidget):
             if i == 'none':
                 self.goals_list.remove('none')
                 self.goals_list.insert(0, 'none')
+
+    def update_table(self):
+        try:
+            # подключаемся к базе
+            db = sqlite3.connect('../database.db')
+            cursor = db.cursor()
+
+            self.task_list = cursor.executemany(
+                '''SELECT date_task, goal_task, priority, goal FROM goals WHERE user_login == self.login''')
+
+            k = cursor.fetchall()
+            db.commit()
+            print('база', k)
+            cursor.close()
+            db.close()
+        except sqlite3.Error as e:
+            print('Error', e)
+
     # ==============================================================================
     # страница Цели
     def add_goal(self):
@@ -89,6 +107,7 @@ class MainWindow(QMainWindow, QWidget):
         self.ui.verticalLayout_goals.setAlignment(Qt.AlignTop)
 
     # ==============================================================================
+    # страница мотивация
     def add_motivation(self):
         # переопределили список как множество
         self.show_goal()
@@ -132,76 +151,42 @@ class MainWindow(QMainWindow, QWidget):
             self.ui.tableWidget.removeRow(self.row_count)
             self.row_count -= 1
 
-    # def update_table(self):
-    #     try:
-    #         # подключаемся к базе
-    #         db = sqlite3.connect('../database.db')
-    #         cursor = db.cursor()
-    #
-    #         # передаем функцию в SQL аргументы: 1-алиаса, 2-кол значений, 3 сама функция
-    #         # db.create_function("coding_pass", 1, self.coding_pass)
-    #
-    #         self.task_list = cursor.executemany(
-    #             '''SELECT date_task, goal_task, priority, goal FROM goals WHERE user_login == self.login''')
-    #
-    #         k = cursor.fetchall()
-    #         db.commit()
-    #         print('база', k)
-    #         cursor.close()
-    #         db.close()
-    #     except sqlite3.Error as e:
-    #         print('Error', e)
+
 
     # =============================================================================
 
     # =============================================================================
     # меню переход по вкладкам
-    def menu_home(self):
+    def menu_hide(self):
+        self.ui.pageHome.hide()
         self.ui.pageGoals.hide()
         self.ui.pageAnalis.hide()
         self.ui.pageMotivation.hide()
         self.ui.pageHadit.hide()
         self.ui.pageEnglish.hide()
+
+    def menu_home(self):
+        self.menu_hide()
         self.ui.pageHome.show()
 
     def menu_goals(self):
-        self.ui.pageHome.hide()
-        self.ui.pageAnalis.hide()
-        self.ui.pageMotivation.hide()
-        self.ui.pageHadit.hide()
-        self.ui.pageEnglish.hide()
+        self.menu_hide()
         self.ui.pageGoals.show()
 
     def menu_analis(self):
-        self.ui.pageHome.hide()
-        self.ui.pageGoals.hide()
-        self.ui.pageMotivation.hide()
-        self.ui.pageHadit.hide()
-        self.ui.pageEnglish.hide()
+        self.menu_hide()
         self.ui.pageAnalis.show()
 
     def menu_motivation(self):
-        self.ui.pageHome.hide()
-        self.ui.pageGoals.hide()
-        self.ui.pageAnalis.hide()
-        self.ui.pageHadit.hide()
-        self.ui.pageEnglish.hide()
+        self.menu_hide()
         self.ui.pageMotivation.show()
 
     def menu_hadit(self):
-        self.ui.pageHome.hide()
-        self.ui.pageGoals.hide()
-        self.ui.pageAnalis.hide()
-        self.ui.pageMotivation.hide()
-        self.ui.pageEnglish.hide()
+        self.menu_hide()
         self.ui.pageHadit.show()
 
     def menu_english(self):
-        self.ui.pageHome.hide()
-        self.ui.pageGoals.hide()
-        self.ui.pageAnalis.hide()
-        self.ui.pageMotivation.hide()
-        self.ui.pageHadit.hide()
+        self.menu_hide()
         self.ui.pageEnglish.show()
 
     # =======================================================================
